@@ -1,11 +1,15 @@
 import {Suspense,useRef,useMemo,useEffect,type RefObject} from 'react'
 import {Canvas,useFrame,useThree} from '@react-three/fiber'
-import {Environment,Lightformer,OrbitControls,ContactShadows} from '@react-three/drei'
+import {Environment,Lightformer,OrbitControls,ContactShadows,useGLTF} from '@react-three/drei'
 import {Group,ShaderMaterial,MathUtils,Vector2} from 'three'
 import {TwistCan,flavours,type Flavour,type WaterMode} from '../TwistCan'
 import {waypointAt} from './ui/lycoris-waypoints'
 
 export type SceneMode='hero'|'duo'|'frost'|'lineup'|'single'|'orbit'|'waypoints'
+export function preloadModels(flavour:SceneProps['flavour']='blueberry_island'){
+ const items=flavour==='all'?flavours.map(f=>f.id):[flavour]
+ items.forEach(id=>useGLTF.preload(`/models/web/${id}_dry.glb`))
+}
 export interface SceneProps {
  mode?:SceneMode;flavour?:Flavour|'all';water?:WaterMode;back?:boolean;spin?:boolean;
  density?:number;paused?:boolean;progress?:RefObject<number>;angle?:number;viewpoint?:number;interactive?:boolean;onReady?:()=>void;
@@ -33,7 +37,7 @@ function Berries({paused}:{paused:boolean}){
 }
 function Feature({mode='hero',flavour='blueberry_island',water='animated',paused=false,progress,spin=true,back=false,angle=0,viewpoint,density=260}:SceneProps){
  const group=useRef<Group>(null),second=useRef<Group>(null)
- const {size,invalidate}=useThree()
+ const {invalidate}=useThree()
  useEffect(()=>invalidate(),[invalidate,viewpoint,angle,back,spin,paused])
  const elapsed=useRef(0)
  useFrame((state,delta)=>{
@@ -51,7 +55,7 @@ function Feature({mode='hero',flavour='blueberry_island',water='animated',paused
    g.rotation.y=MathUtils.damp(g.rotation.y,(spin?t*.32:0)+px+angle,3,delta)
    g.rotation.z=mode==='duo'?-.27:-.16
    g.position.y=paused?0:Math.sin(t*.9)*.06
-   g.position.x=mode==='duo'?.63:mode==='frost'&&size.width>760?1.35:0
+   g.position.x=mode==='duo'?.63:0
    if(second.current){second.current.rotation.set(-.15,-t*.18+.5,.38);second.current.position.set(-.62,-.05,-.6)}
   }
  })
@@ -120,7 +124,8 @@ function ResponsiveControls(){
 function Loaded({onReady,signature}:{onReady?:()=>void;signature:string}){useEffect(()=>{onReady?.()},[onReady,signature]);return null}
 export default function CanScene(props:SceneProps){
  const {mode='hero',flavour='blueberry_island',paused=false,interactive=false}=props
- return <Canvas camera={{fov:36,near:.01,far:60}} dpr={[1,1.5]} gl={{antialias:true,alpha:true,powerPreference:'high-performance'}} frameloop={paused?'demand':'always'}>
+ const moving=!paused&&(props.water==='animated'||!!props.spin||['hero','duo','frost','waypoints'].includes(mode))
+ return <Canvas camera={{fov:36,near:.01,far:60}} dpr={[1,1.25]} gl={{antialias:true,alpha:true,powerPreference:'high-performance'}} frameloop={moving?'always':'demand'}>
   <Suspense fallback={null}><Lighting/>
    {mode==='lineup'||mode==='orbit'?<Collection {...props}/>:<Feature {...props}/>}
    {(mode==='lineup'||mode==='single')&&<ContactShadows position={[0,-1.24,0]} opacity={.3} scale={12} blur={2.5} far={3} resolution={256} frames={1}/>}

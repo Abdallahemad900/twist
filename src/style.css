@@ -15,3 +15,20 @@
 .motion-paused .scroll-section{height:max(800px,100svh)}
 [dir=rtl] .duo-stamp{font-family:'Cairo Variable',sans-serif;line-height:1.5;font-size:14px}
 @media(max-width:760px){.card-art{width:104px}.footer-word>img{width:69%}.bundle-download{font-size:11px;gap:16px}.water-copy h2{font-size:15vw}}
+/* Keep product previews visible until their lazy 3D scene is ready. */
+.model-poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;padding:20px;z-index:4}
+.model-poster img{width:100%;height:85%;object-fit:contain;mix-blend-mode:multiply}
+.model-poster span{font-size:11px;margin-top:10px;letter-spacing:.06em}
+/* Section 4: separate copy and product bounds, including tablet and RTL. */
+.frost-section .sticky-scene{display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:90px 6vw 70px;gap:24px;min-height:0}
+.frost-section .frost-copy{position:relative;top:auto;inset-inline-start:auto;grid-column:1;grid-row:1;min-width:0}
+.frost-section .frost-copy h2{font-size:clamp(42px,6.5vw,104px);overflow-wrap:normal}
+.frost-section .model-stage{position:relative;inset:auto;grid-column:2;grid-row:1;width:100%;height:min(76svh,780px);min-width:0}
+@media(max-width:760px){
+ .frost-section .sticky-scene{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:8px;padding:90px 6vw 65px;height:100svh;min-height:640px}
+ .frost-section .frost-copy{grid-column:1;grid-row:1}
+ .frost-section .frost-copy .eyebrow{margin-bottom:12px}
+ .frost-section .frost-copy h2{font-size:clamp(34px,10vw,64px)}
+ .frost-section .frost-copy p{max-width:100%;margin-top:12px}
+ .frost-section .model-stage{grid-column:1;grid-row:2;width:100%;height:100%;min-height:180px;top:auto}
+}

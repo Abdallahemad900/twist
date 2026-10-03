@@ -17,13 +17,13 @@ export type TwistCanProps=ThreeElements['group'] & {
 }
 
 /** Front faces +Z, Y is up, base is y=0; height ≈0.134 m. */
-export function TwistCan({flavour,water='static',modelPath='/models',dropCount=420,seed=923,transmission=true,animateDrops=true,...props}:TwistCanProps){
-  const suffix=water==='static'?'':'_dry'
-  const {scene}=useGLTF(`${modelPath}/${flavour}${suffix}.glb`)
+export function TwistCan({flavour,water='static',modelPath='/models/web',dropCount=180,seed=923,transmission=false,animateDrops=true,...props}:TwistCanProps){
+  // Share one cached base model across dry, chilled and animated views.
+  const {scene}=useGLTF(`${modelPath}/${flavour}_dry.glb`)
   // Independent transforms, shared immutable geometry/materials for efficient reuse.
   const object=useMemo(()=>scene.clone(true),[scene])
   return <group {...props}>
     <primitive object={object} dispose={null}/>
-    {water==='animated'&&<Condensation count={dropCount} seed={seed} animate={animateDrops} transmission={transmission}/>}
+    {water!=='off'&&<Condensation count={dropCount} seed={seed} animate={water==='animated'&&animateDrops} transmission={transmission}/>}
   </group>
 }

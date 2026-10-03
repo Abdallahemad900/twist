@@ -23,7 +23,7 @@ try {
   for(const [,file] of html.matchAll(/(?:src|href)="(\/[^"#?]+)"/g)){
    assert.ok(fs.existsSync(path.join('public',file)),`Missing asset ${file}`)
   }
-  if(language==='ar'){assert.match(html,/بلوبيري/);assert.match(html,/كل النكهات/);assert.match(html,/تحميل العرض المجسم/)}
+  if(language==='ar'){assert.match(html,/بلوبيري/);assert.match(html,/كل النكهات/);assert.match(html,/عرض مجسم تفاعلي/)}
   else {assert.match(html,/BLUEBERRY/);assert.match(html,/THE FULL COLLECTION/)}
   checks.push(`${language}: 13 sections, explorer fifth, 12 GLB downloads + collection ZIP, valid anchors and assets`)
  }
@@ -40,6 +40,23 @@ try {
   assert.equal(createHash('sha256').update(buf).digest('hex'),modelHashes[`${id}${suffix}.glb`],`Changed existing model ${file}`)
  }
  checks.push('All 12 public GLBs match the existing V2 model files byte for byte')
+ const parseGlb=file=>{const data=fs.readFileSync(file),size=data.readUInt32LE(12);assert.equal(data.readUInt32LE(8),data.length);return {doc:JSON.parse(data.subarray(20,20+size)),bin:data.subarray(28+size),bytes:data.length}}
+ for(const id of ids){
+  const original=parseGlb(`public/models/${id}_dry.glb`),web=parseGlb(`public/models/web/${id}_dry.glb`)
+  assert.ok(web.bytes<650000,`${id}: web model exceeds transfer budget`)
+  assert.deepEqual(web.doc.nodes,original.doc.nodes)
+  assert.deepEqual(web.doc.accessors,original.doc.accessors)
+  const imageViews=new Set(web.doc.images.map(image=>image.bufferView))
+  web.doc.bufferViews.forEach((view,i)=>{
+   assert.equal(view.byteOffset%4,0)
+   assert.ok(view.byteOffset+view.byteLength<=web.bin.length)
+   if(!imageViews.has(i)){
+    const before=original.doc.bufferViews[i]
+    assert.deepEqual(web.bin.subarray(view.byteOffset,view.byteOffset+view.byteLength),original.bin.subarray(before.byteOffset||0,(before.byteOffset||0)+before.byteLength))
+   }
+  })
+ }
+ checks.push('Six web models below 650 KB each; geometry unchanged and buffer ranges valid')
  fs.writeFileSync('verification.json',JSON.stringify({date:new Date().toISOString(),status:'passed',scope:'Static/server-rendered verification. Browser visual and WebGL execution were blocked by browser URL policy.',checks},null,2))
  console.log(checks.join('\n'))
 }finally{await server.close()}
