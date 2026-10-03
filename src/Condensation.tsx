@@ -61,6 +61,7 @@ export function Condensation({radius=.0265,minY=.012,maxY=.119,count=420,seed=92
   return <instancedMesh ref={mesh} args={[undefined,undefined,drops.length]} frustumCulled={false} name="WebGL condensation">
     <sphereGeometry args={[1,10,6]}/>
     <meshPhysicalMaterial color="#faffff" roughness={.075} metalness={0}
+      transparent={!transmission} opacity={transmission?1:.35}
       transmission={transmission ? .98 : 0} ior={1.333} thickness={.0005}
       clearcoat={.2} clearcoatRoughness={.055} envMapIntensity={1.2}/>
   </instancedMesh>
