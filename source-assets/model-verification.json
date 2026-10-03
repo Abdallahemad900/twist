@@ -1,0 +1,110 @@
+[
+  {
+    "file": "blueberry_island.glb",
+    "bytes": 2062204,
+    "triangles": 82784,
+    "meshes": 13,
+    "embedded_images": 2,
+    "droplets": 420,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  },
+  {
+    "file": "blueberry_island_dry.glb",
+    "bytes": 1052968,
+    "triangles": 32384,
+    "meshes": 12,
+    "embedded_images": 2,
+    "droplets": 0,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  },
+  {
+    "file": "coconutberry.glb",
+    "bytes": 2086864,
+    "triangles": 82784,
+    "meshes": 13,
+    "embedded_images": 2,
+    "droplets": 420,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  },
+  {
+    "file": "coconutberry_dry.glb",
+    "bytes": 1077624,
+    "triangles": 32384,
+    "meshes": 12,
+    "embedded_images": 2,
+    "droplets": 0,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  },
+  {
+    "file": "mango_peach.glb",
+    "bytes": 2085496,
+    "triangles": 82784,
+    "meshes": 13,
+    "embedded_images": 2,
+    "droplets": 420,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  },
+  {
+    "file": "mango_peach_dry.glb",
+    "bytes": 1076264,
+    "triangles": 32384,
+    "meshes": 12,
+    "embedded_images": 2,
+    "droplets": 0,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  },
+  {
+    "file": "original.glb",
+    "bytes": 2067696,
+    "triangles": 82784,
+    "meshes": 13,
+    "embedded_images": 2,
+    "droplets": 420,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  },
+  {
+    "file": "original_dry.glb",
+    "bytes": 1058460,
+    "triangles": 32384,
+    "meshes": 12,
+    "embedded_images": 2,
+    "droplets": 0,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  },
+  {
+    "file": "power_craze.glb",
+    "bytes": 2091256,
+    "triangles": 82784,
+    "meshes": 13,
+    "embedded_images": 2,
+    "droplets": 420,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  },
+  {
+    "file": "power_craze_dry.glb",
+    "bytes": 1082020,
+    "triangles": 32384,
+    "meshes": 12,
+    "embedded_images": 2,
+    "droplets": 0,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  },
+  {
+    "file": "strawberry.glb",
+    "bytes": 2092672,
+    "triangles": 82784,
+    "meshes": 13,
+    "embedded_images": 2,
+    "droplets": 420,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  },
+  {
+    "file": "strawberry_dry.glb",
+    "bytes": 1083440,
+    "triangles": 32384,
+    "meshes": 12,
+    "embedded_images": 2,
+    "droplets": 0,
+    "shared_back_sha256": "36760fbdf5ebb2a4b36c9a89caa2e1c03ec1e61d475786289f042d74f1ae437e"
+  }
+]
